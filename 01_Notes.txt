@@ -1,0 +1,40 @@
+1. Install google cloud SDK
+2. Intialize everything with: 'gcloud init'
+3. Reintalize configurations
+4. Select account
+5. Allow permission
+6. Pick project or create new project
+7. Go to project file. You need to make two files. a. config file and app file. A py file which will be rendering code to a particular path told by config file. 
+
+a. Webapp
+- Import webapp2 which will be serving content to particular request(How content is to be sent or what content is to be sent is decided by webapp2)
+- define a Class which will be serving data. pass webapp2.RequestHandler to the class. (Inheritance)
+- define get method. When the get method comes to our page what response should it return. 
+- create an app var which tells WSGIApplication server(server which will route the application to particular request). request need to fetch data from this particular class. It recieves arguments of path and class  which will send data. And debug = True. 
+CODE: 
+
+/------------------------------------------------------------------/
+
+import webapp2
+
+class MainPage(webapp2.RequestHandler):
+    def get(self):
+        seld.response.write("Hello World!")
+
+app = webapp2.WSGIApplication([('/',MainPage)],debug=True)
+
+
+/------------------------------------------------------------------/
+
+b. config File
+.yml file
+Things to mention in file
+1. Runtime    (Python version first 2 ex 3.10.11 mention 'runtime: python310' no quotes)
+2. API version of SDK (Refer to google docs)
+3. Threadsafe (Allow the information avaliable in app to be handled by multi level threads) ('threadsafe : false')
+flase- single thread will be accessing information at a time
+4. handlers : will contain the URL where you request you need to take in.
+- url : /     ('want this app at base index')
+- scripts: test.app ('file you will be rendering')
+
+
